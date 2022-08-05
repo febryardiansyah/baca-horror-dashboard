@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import React from 'react'
 import "./App.css";
 import AuthorPage from "./pages/author/AuthorPage";
@@ -19,6 +19,10 @@ function App() {
           <Route path="user" element={<UserPage />} />
           <Route path="comment" element={<CommentPage />} />
         </Route>
+        <Route
+          path="*"
+          element={<Navigate to="/login" replace />}
+        />
       </Routes>
     </BrowserRouter>
   );

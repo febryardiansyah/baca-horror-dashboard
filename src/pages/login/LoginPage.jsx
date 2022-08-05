@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './login.css'
-import { useNavigate } from "react-router-dom";
-import http from '../../services/http';
-import { useDispatch } from 'react-redux';
+import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch, } from 'react-redux';
 import { baseActions } from '../../redux/module/baseSlice';
+import constants from '../../helpers/constants';
+import authService from '../../services/authService';
 
 
 const LoginPage = () => {
@@ -15,17 +16,22 @@ const LoginPage = () => {
     })
 
     const handleOnSubmit = async () => {
-        console.log(`Login data ${login.email}`);
-        console.log(`Login data ${login.password}`);
         try {
-            const response = await http.post('user/login', login);
-            navigate('/dashboard')
-            // const { token, user } = response.data
-            // dispatch(baseActions.setUser(user))
+            const service = await authService.login(login)
+            const user = service.user
+            dispatch(baseActions.setUser(JSON.stringify(user)))
+            navigate(constants.ROUTE.dashboard)
         } catch (error) {
             console.log(error);
         }
     }
+
+    useEffect(() => {
+        if (authService.isLogin) {
+            navigate(constants.ROUTE.dashboard)
+        }
+
+    }, [])
 
     return (
         <div className='body-login'>
