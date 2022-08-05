@@ -1,4 +1,5 @@
-import { readToken, readUser, saveToken, saveUser } from "../helpers/storage";
+import { useSelector } from "react-redux";
+import { saveToken, saveUser, storageRemoveAll } from "../helpers/storage";
 import http from "./http"
 
 export default {
@@ -13,10 +14,13 @@ export default {
             throw error;
         }
     },
-    isLogin: async () => {
-        const user = readUser()
-        const token = readToken()
-        return user && token
+    isLogin: () => {
+        const user = useSelector(state => state.base.user)
+
+        return user !== null;
+    },
+    logout: () => {
+        storageRemoveAll()
     }
 
 }

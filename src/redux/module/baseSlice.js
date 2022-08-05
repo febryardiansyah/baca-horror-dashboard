@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { readUser } from "../../helpers/storage";
-const user = readUser()
+const user = JSON.parse(readUser())
 
 const baseSlice = createSlice({
-    name: 'user',
+    name: 'base',
     initialState: {
-        user: user || {}
+        user: user || null
     },
     reducers: {
         setUser: (state, { payload }) => {

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import TitleComponent from "../../components/sidebar/TitleComponent";
 import "./story.css";
 

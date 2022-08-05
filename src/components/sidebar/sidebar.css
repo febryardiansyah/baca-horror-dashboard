@@ -15,6 +15,10 @@
     /* margin-right: 250px; */
 }
 
+.sidebar ul {
+    list-style: none;
+}
+
 .sidebar li a,
 #title {
     padding: 8px 8px 8px 32px;

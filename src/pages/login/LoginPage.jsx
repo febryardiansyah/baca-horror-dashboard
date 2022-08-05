@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import './login.css'
-import { Navigate, useNavigate } from "react-router-dom";
-import { useDispatch, } from 'react-redux';
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector, } from 'react-redux';
 import { baseActions } from '../../redux/module/baseSlice';
 import constants from '../../helpers/constants';
 import authService from '../../services/authService';
 
 
 const LoginPage = () => {
+    const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const [login, setLogin] = useState({
         email: '',
         password: ''
     })
+    const user = useSelector(state => state.base.user)
 
     const handleOnSubmit = async () => {
         try {
@@ -26,12 +28,9 @@ const LoginPage = () => {
         }
     }
 
-    useEffect(() => {
-        if (authService.isLogin) {
-            navigate(constants.ROUTE.dashboard)
-        }
-
-    }, [])
+    if (user) {
+        return <Navigate to='/dashboard' replace state={{ location }} />
+    }
 
     return (
         <div className='body-login'>

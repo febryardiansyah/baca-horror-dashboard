@@ -5,10 +5,14 @@ import SideBar from '../../components/sidebar/SideBar'
 
 const DashboardPage = () => {
   const navigate = useNavigate()
-  const user = useSelector(state => state.user);
-  console.log(`USER STATE => ${user}`);
+  const user = useSelector(state => state.base.user)
+
   useEffect(() => {
-    navigate('/dashboard/story')
+    if (user) {
+      navigate('/dashboard/story')
+    }else{
+      navigate('/login')
+    }
   }, [])
 
   return (
