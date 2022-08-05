@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { baseActions } from '../../redux/module/baseSlice'
@@ -32,10 +33,13 @@ const SideBar = () => {
                 </ul>
                 <hr />
                 <button className='btn btn-danger m-2' onClick={(e) => {
+                    toast.loading('Loading..')
                     e.preventDefault()
                     authService.logout()
                     dispatch(baseActions.setUser(null))
+                    toast.dismiss()
                     navigate('/login')
+                    toast.success('Logout berhasil!')
                 }}>
                     <i className="bi bi-box-arrow-left me-2"></i>
                     Keluar

@@ -5,6 +5,7 @@ import { useDispatch, useSelector, } from 'react-redux';
 import { baseActions } from '../../redux/module/baseSlice';
 import constants from '../../helpers/constants';
 import authService from '../../services/authService';
+import toast from 'react-hot-toast';
 
 
 const LoginPage = () => {
@@ -18,13 +19,17 @@ const LoginPage = () => {
     const user = useSelector(state => state.base.user)
 
     const handleOnSubmit = async () => {
+        toast.loading('Loading...');
         try {
             const service = await authService.login(login)
             const user = service.user
+            toast.dismiss()
             dispatch(baseActions.setUser(JSON.stringify(user)))
             navigate(constants.ROUTE.dashboard)
+            toast.success('Login berhasil!');
         } catch (error) {
-            console.log(error);
+            toast.dismiss()
+            toast.error('Login gagal!');
         }
     }
 
