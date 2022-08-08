@@ -51,7 +51,7 @@ const LoginPage = () => {
                     <div className="card-body">
                         <form>
                             <div className="mb-3">
-                                <label for="exampleInputEmail1" className="form-label">Email</label>
+                                <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
                                 <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Masukan email' onChange={(e) => {
                                     setLogin({
                                         ...login,
@@ -60,7 +60,7 @@ const LoginPage = () => {
                                 }} />
                             </div>
                             <div className="mb-3">
-                                <label for="exampleInputPassword1" className="form-label">Password</label>
+                                <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
                                 <input type="password" className="form-control" id="exampleInputPassword1" placeholder='Masukan password' onChange={(e) => {
                                     setLogin({
                                         ...login,
@@ -69,10 +69,9 @@ const LoginPage = () => {
                                 }} />
                             </div>
                             <center className="d-grid gap-2">
-                                <button type="submit" class="btn btn-dark" onClick={(e) => {
+                                <button type="submit" className="btn btn-dark" onClick={(e) => {
                                     e.preventDefault()
                                     handleOnSubmit()
-                                    // navigate('/dashboard')
                                 }} >Masuk</button>
                             </center>
                         </form>

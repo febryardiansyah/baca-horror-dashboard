@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import PrimaryButton from "../../components/button/PrimaryButton";
 import LoadingPage from "../../components/loading/LoadingPage";
 import TitleComponent from "../../components/sidebar/TitleComponent";
@@ -13,18 +13,19 @@ const StoryPage = () => {
   const { page } = useParams()
   const pageNumber = page !== undefined ? parseInt(page) : 1;
   const hasPrevious = pageNumber > 1
+  const navigate = useNavigate()
 
   const [storyData, setStoryData] = useState({
     data: null,
   })
-
+  const [keyword, setKeyword] = useState()
   const [currentPage, setCurrentPage] = useState(page)
 
 
   const fetchData = async () => {
     try {
       setCurrentPage(pageNumber)
-      const service = await storyService.getAllStory(pageNumber)
+      const service = await storyService.getAllStory(pageNumber, keyword)
       setStoryData({
         data: service
       })
@@ -52,11 +53,19 @@ const StoryPage = () => {
 
       {/* main */}
       <div className="m-4">
-        <form>
+        <form onSubmit={(e) => {
+          navigate('page/1')
+          e.preventDefault()
+          fetchData()
+        }}>
           <input
             className="form-control"
             type="text"
             placeholder="Cari cerita.."
+            onChange={(e) => {
+              e.preventDefault()
+              setKeyword(e.target.value)
+            }}
           />
         </form>
         <div className="d-flex flex-row align-items-center justify-content-between mt-4">
@@ -66,38 +75,43 @@ const StoryPage = () => {
           </div>
         </div>
         <div className="card mt-4">
-          {storyData.data.list.map((item, index) => (
-            <div key={index} className="card-header story-item p-4">
-              <div className="d-flex">
-                <div className="col-1">
-                  <div>{index + 1}</div>
-                </div>
-                <div className="d-flex flex-row justify-content-between align-items-start col-11">
-                  <div className="d-flex flex-column">
-                    <h4> {item.title} </h4>
-                    <div className="fs-6 fw-light"> {formatTime(item.created_at)} </div>
+          {
+            storyData.data.list.length == 0 ?
+              <div className="m-4 text-center">
+                Hasil tidak ditemukan
+              </div> :
+              storyData.data.list.map((item, index) => (
+                <div key={index} className="card-header story-item p-4">
+                  <div className="d-flex">
+                    <div className="col-1">
+                      <div>{index + 1}</div>
+                    </div>
+                    <div className="d-flex flex-row justify-content-between align-items-start col-11">
+                      <div className="d-flex flex-column">
+                        <h4> {item.title} </h4>
+                        <div className="fs-6 fw-light"> {formatTime(item.created_at)} </div>
+                      </div>
+                      <div className="dropdown">
+                        <button className="btn btn-light btn-outline-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i className="bi bi-three-dots"></i>
+                        </button>
+                        <ul className="dropdown-menu">
+                          <li>
+                            <a className="dropdown-item" href="#"> <i className="bi bi-pencil"></i> Edit </a>
+                          </li>
+                          <li>
+                            <a className="dropdown-item" href="#"> <i className="bi bi-eye"></i> Lihat </a>
+                          </li>
+                          <hr />
+                          <li>
+                            <a className="dropdown-item text-danger" href="#"> <i className="bi bi-trash"></i> Hapus </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
-                  <div className="dropdown">
-                    <button className="btn btn-light btn-outline-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i className="bi bi-three-dots"></i>
-                    </button>
-                    <ul className="dropdown-menu">
-                      <li>
-                        <a className="dropdown-item" href="#"> <i className="bi bi-pencil"></i> Edit </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#"> <i className="bi bi-eye"></i> Lihat </a>
-                      </li>
-                      <hr />
-                      <li>
-                        <a className="dropdown-item text-danger" href="#"> <i className="bi bi-trash"></i> Hapus </a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
-              </div>
-            </div>
-          ))
+              ))
           }
         </div>
 
