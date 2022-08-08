@@ -16,7 +16,9 @@ function App() {
         <Routes>
           <Route index path="/login" element={<LoginPage />} />
           <Route path="/dashboard" element={<DashboardPage />}>
-            <Route index path="story" element={<StoryPage />} />
+            <Route path="story" element={<StoryPage />} >
+              <Route path="page/:page" element={<StoryPage />} />
+            </Route>
             <Route path="author" element={<AuthorPage />} />
             <Route path="user" element={<UserPage />} />
             <Route path="comment" element={<CommentPage />} />
