@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import PrimaryButton from "../../components/button/PrimaryButton";
+import LoadingPage from "../../components/loading/LoadingPage";
 import TitleComponent from "../../components/sidebar/TitleComponent";
 import formatTime from "../../helpers/formatTime";
 import storyService from "../../services/storyService";
@@ -20,7 +22,6 @@ const StoryPage = () => {
 
 
   const fetchData = async () => {
-    console.log(`page from useParams ====>${pageNumber}`);
     try {
       setCurrentPage(pageNumber)
       const service = await storyService.getAllStory(pageNumber)
@@ -38,9 +39,7 @@ const StoryPage = () => {
   }, [pageNumber])
 
   if (!storyData.data) {
-    return <center style={{
-      marginLeft: "250px",
-    }}>Loading..</center>
+    return <LoadingPage />
   }
 
   return (
@@ -61,10 +60,7 @@ const StoryPage = () => {
           />
         </form>
         <div className="d-flex flex-row align-items-center justify-content-between mt-4">
-          <button className="btn btn-dark">
-            <i className="bi bi-pencil-square me-2"></i>
-            Tambah Cerita
-          </button>
+          <PrimaryButton icon='bi-pencil-square' text='Tambah Cerita' />
           <div className="">
             Halaman: {storyData.data.current_page} / {storyData.data.total_pages}
           </div>

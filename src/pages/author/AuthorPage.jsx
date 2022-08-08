@@ -1,8 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import PrimaryButton from '../../components/button/PrimaryButton'
+import LoadingPage from '../../components/loading/LoadingPage'
 import TitleComponent from '../../components/sidebar/TitleComponent'
+import formatTime from '../../helpers/formatTime'
+import authorService from '../../services/authorService'
 import './author.css'
 
 const AuthorPage = () => {
+  const [data, setData] = useState()
+
+  useEffect(() => {
+    authorService.getAll()
+      .then((data) => {
+        setData(data)
+      })
+      .catch((err) => {
+        toast.error(err)
+      })
+  }, [])
+
+  if (!data) {
+    return <LoadingPage />
+  }
+
   return (
     <div style={{
       marginLeft: '250px'
@@ -16,10 +37,11 @@ const AuthorPage = () => {
             placeholder="Cari author.."
           />
         </form>
-        <table class="table mt-4">
+        <PrimaryButton className='mt-4' text='Tambah author' icon='bi-pencil-square' />
+        <table className="table mt-4">
           <thead>
             <tr>
-              <th scope="col">#</th>
+              <th scope="col"></th>
               <th scope="col">Nama</th>
               <th scope="col">Dibuat</th>
               <th scope="col">Total cerita</th>
@@ -28,15 +50,15 @@ const AuthorPage = () => {
           </thead>
           <tbody>
             {
-              dummyUsers.map((item, index) => (
-                <tr className='tr-item'>
+              data.authors.map((item, index) => (
+                <tr key={index} className='tr-item'>
                   <th scope='row'> {index + 1} </th>
                   <td>
-                    <img src={item.img} class="rounded-circle me-2" style={{ height: '32px' }}/>
+                    <img src={item.img} className="rounded-circle me-2" style={{ height: '32px' }} />
                     {item.name}
                   </td>
-                  <td>{item.createdAt}</td>
-                  <td>{item.totalStory}</td>
+                  <td> {formatTime(item.created_at)} </td>
+                  <td> {item.total_stories} </td>
                   <td>
                     <div className="dropdown">
                       <button className="btn btn-light btn-outline-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -65,44 +87,5 @@ const AuthorPage = () => {
     </div>
   )
 }
-
-const dummyUsers = [
-  {
-    name: 'hsdhshd',
-    img: 'https://pbs.twimg.com/profile_images/1430463420617302019/65F5oRJU_bigger.jpg',
-    createdAt: '22 Juni 2022',
-    totalStory: 10
-  },
-  {
-    name: 'hsdhshd',
-    img: 'https://pbs.twimg.com/profile_images/1430463420617302019/65F5oRJU_bigger.jpg',
-    createdAt: '22 Juni 2022',
-    totalStory: 10
-  },
-  {
-    name: 'hsdhshd',
-    img: 'https://pbs.twimg.com/profile_images/1430463420617302019/65F5oRJU_bigger.jpg',
-    createdAt: '22 Juni 2022',
-    totalStory: 10
-  },
-  {
-    name: 'hsdhshd',
-    img: 'https://pbs.twimg.com/profile_images/1430463420617302019/65F5oRJU_bigger.jpg',
-    createdAt: '22 Juni 2022',
-    totalStory: 10
-  },
-  {
-    name: 'hsdhshd',
-    img: 'https://pbs.twimg.com/profile_images/1430463420617302019/65F5oRJU_bigger.jpg',
-    createdAt: '22 Juni 2022',
-    totalStory: 10
-  },
-  {
-    name: 'hsdhshd',
-    img: 'https://pbs.twimg.com/profile_images/1430463420617302019/65F5oRJU_bigger.jpg',
-    createdAt: '22 Juni 2022',
-    totalStory: 10
-  },
-]
 
 export default AuthorPage
