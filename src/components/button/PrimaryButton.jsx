@@ -1,9 +1,11 @@
 import React from 'react'
 
-const PrimaryButton = ({ icon, text, className }) => {
+const PrimaryButton = ({ icon, text, className, onClick }) => {
     return (
         <div className={className}>
-            <button className="btn btn-dark">
+            <button className="btn btn-dark gap-2" onClick={(e) => {
+                onClick(e)
+            }}>
                 <i className={`bi ${icon} me-2`}></i>
                 {text}
             </button>

@@ -20,7 +20,9 @@ const SideBar = () => {
     return (
         <div>
             <div id="mySidebar" className="sidebar fixed-top d-flex flex-column">
-                <h2 className='text-white' id='title'>Baca Horror</h2>
+                <h2 className='text-white' id='title' onClick={()=>{
+                    navigate('/dashboard')
+                }}>Baca Horror</h2>
                 <hr className='text-white' />
                 <ul className='nav flex-column mb-auto'>
                     {

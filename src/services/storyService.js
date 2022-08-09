@@ -11,9 +11,9 @@ export default {
                 }
             })
 
-            return response.data
+            return Promise.resolve(response.data)
         } catch (error) {
-            Promise.reject(error)
+            return Promise.reject(error)
         }
     }
 }

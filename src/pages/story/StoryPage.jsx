@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link,useLocation, useNavigate, useParams } from "react-router-dom";
 import PrimaryButton from "../../components/button/PrimaryButton";
 import LoadingPage from "../../components/loading/LoadingPage";
 import TitleComponent from "../../components/sidebar/TitleComponent";
@@ -30,8 +29,8 @@ const StoryPage = () => {
         data: service
       })
     } catch (error) {
-      console.log(error);
-      toast.error(error)
+      console.log(`ERR => ${error.message}`);
+      toast.error(error.message)
     }
   }
 
@@ -69,14 +68,16 @@ const StoryPage = () => {
           />
         </form>
         <div className="d-flex flex-row align-items-center justify-content-between mt-4">
-          <PrimaryButton icon='bi-pencil-square' text='Tambah Cerita' />
+          <PrimaryButton icon='bi-pencil-square' text='Tambah Cerita' onClick={() => {
+            navigate('new', { replace: true })
+          }} />
           <div className="">
             Halaman: {storyData.data.current_page} / {storyData.data.total_pages}
           </div>
         </div>
         <div className="card mt-4">
           {
-            storyData.data.list.length == 0 ?
+            storyData.data.list.length === 0 ?
               <div className="m-4 text-center">
                 Hasil tidak ditemukan
               </div> :
