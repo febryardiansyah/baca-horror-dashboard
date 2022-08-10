@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { Link,useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import PrimaryButton from "../../components/button/PrimaryButton";
 import LoadingPage from "../../components/loading/LoadingPage";
 import TitleComponent from "../../components/sidebar/TitleComponent";
@@ -20,8 +20,7 @@ const StoryPage = () => {
   const [keyword, setKeyword] = useState()
   const [currentPage, setCurrentPage] = useState(page)
 
-
-  const fetchData = async () => {
+  const fetchAllStory = async () => {
     try {
       setCurrentPage(pageNumber)
       const service = await storyService.getAllStory(pageNumber, keyword)
@@ -34,8 +33,20 @@ const StoryPage = () => {
     }
   }
 
+  const onDeleteById = async (id) => {
+    toast.loading('Loading..')
+    try {
+      const service = await storyService.deleteStoryById(id)
+      toast.dismiss()
+      toast.success(service.message)
+      fetchAllStory()
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
   useEffect(() => {
-    fetchData()
+    fetchAllStory()
   }, [pageNumber])
 
   if (!storyData.data) {
@@ -55,7 +66,7 @@ const StoryPage = () => {
         <form onSubmit={(e) => {
           navigate('page/1')
           e.preventDefault()
-          fetchData()
+          fetchAllStory()
         }}>
           <input
             className="form-control"
@@ -91,6 +102,7 @@ const StoryPage = () => {
                       <div className="d-flex flex-column">
                         <h4> {item.title} </h4>
                         <div className="fs-6 fw-light"> {formatTime(item.created_at)} </div>
+                        <div className="fs-6 fw-light"> cerita oleh: {item.author.name} </div>
                       </div>
                       <div className="dropdown">
                         <button className="btn btn-light btn-outline-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -98,14 +110,17 @@ const StoryPage = () => {
                         </button>
                         <ul className="dropdown-menu">
                           <li>
-                            <a className="dropdown-item" href="#"> <i className="bi bi-pencil"></i> Edit </a>
+                            <a className="dropdown-item"> <i className="bi bi-pencil"></i> Edit </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="#"> <i className="bi bi-eye"></i> Lihat </a>
+                            <a className="dropdown-item"> <i className="bi bi-eye"></i> Lihat </a>
                           </li>
                           <hr />
                           <li>
-                            <a className="dropdown-item text-danger" href="#"> <i className="bi bi-trash"></i> Hapus </a>
+                            <a className="dropdown-item text-danger" onClick={(e) => {
+                              e.preventDefault()
+                              onDeleteById(item.id)
+                            }}> <i className="bi bi-trash"></i> Hapus </a>
                           </li>
                         </ul>
                       </div>
