@@ -15,5 +15,16 @@ export default {
         } catch (error) {
             return Promise.reject(error)
         }
+    },
+    createNewStory: async(title, url, id) => {
+        try {
+            const response = await http.post('story/create',{
+                title,url,author_id: id
+            },)
+
+            return Promise.resolve(response.data)
+        } catch (error) {
+            return Promise.reject(error.response.data || error)
+        }
     }
 }
