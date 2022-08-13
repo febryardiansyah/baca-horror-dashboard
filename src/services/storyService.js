@@ -6,14 +6,14 @@ export default {
             const response = await http.get('story/all', {
                 params: {
                     page: page,
-                    limit: 2,
+                    limit: 10,
                     title: keyword
                 }
             })
 
             return Promise.resolve(response.data)
         } catch (error) {
-            return Promise.reject(error)
+            return Promise.reject(error.response.data || error)
         }
     },
     createNewStory: async (title, url, id) => {

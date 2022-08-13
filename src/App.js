@@ -12,6 +12,8 @@ import NewStoryPage from "./pages/story/NewStoryPage";
 import { useSelector } from "react-redux";
 import ViewStoryPage from "./pages/story/ViewStoryPage";
 import IndexStory from "./pages/story/IndexStory";
+import IndexAuthor from "./pages/author/IndexAuthor";
+import NewAuthorPage from "./pages/author/NewAuthorPage";
 
 function App() {
   const user = useSelector(state => state.base.user)
@@ -25,13 +27,16 @@ function App() {
               <Route path="/dashboard/*" element={<DashboardPage />}>
                 <Route path="story" element={<IndexStory />} >
                   <Route index path="" element={<StoryPage />} />
-                  <Route index path="page/:page" element={<StoryPage />} />
+                  <Route path="page/:page" element={<StoryPage />} />
                   <Route path="new" element={<NewStoryPage />} />
                   <Route path="view/:id" element={<ViewStoryPage />} />
                 </Route>
                 {/* <Route path="story/new" element={<NewStoryPage />} />
                 <Route path="story/view/:id" element={<ViewStoryPage />} /> */}
-                <Route path="author" element={<AuthorPage />} />
+                <Route path="author" element={<IndexAuthor />}>
+                  <Route index path="" element={<AuthorPage />} />
+                  <Route path="new" element={<NewAuthorPage />} />
+                </Route>
                 <Route path="user" element={<UserPage />} />
                 <Route path="comment" element={<CommentPage />} />
               </Route>

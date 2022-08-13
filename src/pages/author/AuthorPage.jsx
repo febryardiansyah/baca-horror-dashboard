@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 import PrimaryButton from '../../components/button/PrimaryButton'
 import LoadingPage from '../../components/loading/LoadingPage'
 import TitleComponent from '../../components/sidebar/TitleComponent'
@@ -9,6 +10,7 @@ import './author.css'
 
 const AuthorPage = () => {
   const [data, setData] = useState()
+  const navigate = useNavigate()
 
   useEffect(() => {
     authorService.getAll()
@@ -37,7 +39,9 @@ const AuthorPage = () => {
             placeholder="Cari author.."
           />
         </form>
-        <PrimaryButton className='mt-4' text='Tambah author' icon='bi-pencil-square' />
+        <PrimaryButton className='mt-4' text='Tambah author' icon='bi-pencil-square' onClick={()=>{
+          navigate('new')
+        }}/>
         <table className="table mt-4">
           <thead>
             <tr>
