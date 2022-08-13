@@ -10,6 +10,8 @@ import UserPage from "./pages/user/UserPage";
 import { Toaster } from "react-hot-toast";
 import NewStoryPage from "./pages/story/NewStoryPage";
 import { useSelector } from "react-redux";
+import ViewStoryPage from "./pages/story/ViewStoryPage";
+import IndexStory from "./pages/story/IndexStory";
 
 function App() {
   const user = useSelector(state => state.base.user)
@@ -21,10 +23,14 @@ function App() {
           {
             !user ? <Route element={<Navigate to="/login" replace />} /> :
               <Route path="/dashboard/*" element={<DashboardPage />}>
-                <Route path="story" element={<StoryPage />} >
-                  <Route path="page/:page" element={<StoryPage />} />
+                <Route path="story" element={<IndexStory />} >
+                  <Route index path="" element={<StoryPage />} />
+                  <Route index path="page/:page" element={<StoryPage />} />
+                  <Route path="new" element={<NewStoryPage />} />
+                  <Route path="view/:id" element={<ViewStoryPage />} />
                 </Route>
-                <Route path="story/new" element={<NewStoryPage />} />
+                {/* <Route path="story/new" element={<NewStoryPage />} />
+                <Route path="story/view/:id" element={<ViewStoryPage />} /> */}
                 <Route path="author" element={<AuthorPage />} />
                 <Route path="user" element={<UserPage />} />
                 <Route path="comment" element={<CommentPage />} />

@@ -9,9 +9,6 @@ import storyService from '../../services/storyService'
 
 const NewStoryPage = () => {
     const [authorData, setAuthorData] = useState()
-    const [title, setTitle] = useState()
-    const [url, setUrl] = useState()
-    const [authorId, setAuthorId] = useState(null)
     const { register, handleSubmit, formState: { errors } } = useForm()
 
     const getAuthor = async () => {

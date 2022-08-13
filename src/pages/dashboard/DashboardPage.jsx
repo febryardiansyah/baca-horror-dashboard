@@ -8,7 +8,7 @@ const DashboardPage = () => {
       <SideBar />
       <Outlet />
       <Routes>
-        <Route path='/' element={<Navigate to='/dashboard/story' replace />} />
+        <Route path='/' element={<Navigate to='/dashboard/story/page/1' replace />} />
       </Routes>
     </div>
   )

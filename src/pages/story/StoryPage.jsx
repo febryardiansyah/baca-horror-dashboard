@@ -80,7 +80,7 @@ const StoryPage = () => {
         </form>
         <div className="d-flex flex-row align-items-center justify-content-between mt-4">
           <PrimaryButton icon='bi-pencil-square' text='Tambah Cerita' onClick={() => {
-            navigate('new', { replace: true })
+            navigate('../new')
           }} />
           <div className="">
             Halaman: {storyData.data.current_page} / {storyData.data.total_pages}
@@ -113,7 +113,9 @@ const StoryPage = () => {
                             <a className="dropdown-item"> <i className="bi bi-pencil"></i> Edit </a>
                           </li>
                           <li>
-                            <a className="dropdown-item"> <i className="bi bi-eye"></i> Lihat </a>
+                            <a className="dropdown-item" onClick={() => {
+                              navigate(`../view/${item.id}`)
+                            }}> <i className="bi bi-eye"></i> Lihat </a>
                           </li>
                           <hr />
                           <li>
@@ -135,12 +137,12 @@ const StoryPage = () => {
         <nav className="mt-3" aria-label="...">
           <ul className="pagination justify-content-between">
             <li className={`page-item ${!hasPrevious ? 'disabled' : ''}`}>
-              <Link className="page-link" to={`page/${currentPage - 1}`}>
+              <Link className="page-link" to={`../page/${currentPage - 1}`} replace>
                 Sebelumnya
               </Link>
             </li>
             <li className={`page-item ${storyData.data.current_page === storyData.data.total_pages ? 'disabled' : ''}`}>
-              <Link className="page-link" to={`page/${currentPage + 1}`} >
+              <Link className="page-link" to={`../page/${currentPage + 1}`} replace >
                 Berikutnya
               </Link>
             </li>
