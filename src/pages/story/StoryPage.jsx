@@ -64,7 +64,7 @@ const StoryPage = () => {
       {/* main */}
       <div className="m-4">
         <form onSubmit={(e) => {
-          navigate('page/1')
+          navigate('../page/1')
           e.preventDefault()
           fetchAllStory()
         }}>
@@ -100,9 +100,10 @@ const StoryPage = () => {
                     </div>
                     <div className="d-flex flex-row justify-content-between align-items-start col-11">
                       <div className="d-flex flex-column">
-                        <h4> {item.title} </h4>
-                        <div className="fs-6 fw-light"> {formatTime(item.created_at)} </div>
-                        <div className="fs-6 fw-light"> cerita oleh: {item.author.name} </div>
+                        <h4> {item.title}</h4>
+                        <div className="fs-6 fw-light">ID: {item.id} </div>
+                        <div className="fs-6 fw-light">Dibuat:  {formatTime(item.created_at)} </div>
+                        <div className="fs-6 fw-light"> Cerita oleh: {item.author.name} </div>
                       </div>
                       <div className="dropdown">
                         <button className="btn btn-light btn-outline-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">

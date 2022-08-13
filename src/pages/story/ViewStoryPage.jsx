@@ -27,22 +27,24 @@ const ViewStoryPage = () => {
 
     return (
         <div style={{ marginLeft: '250px' }} className='mt-5 text-center'>
-            <div className="text-start ms-4 mb-5">
-                <button className='btn btn-dark' onClick={()=>{
-                    navigate(-1)
-                }}>
-                    Kembali
-                </button>
-            </div>
-            <img className='img-fluid img-thubmnail rounded' src={story.img} alt="" width='350px' height='300px' />
-            <h4 className='mt-4'>{story.title}</h4>
-            <p className='mt-4'>{story.synopsis}</p>
-            <div className="mt-4">
-                <p><b>Sumber: </b>{story.source}</p>
-                <p><b>Url: </b>{story.url}</p>
-                <p><b>Total like: </b>{story.total_likes}</p>
-                <p><b>Dibuat: </b>{story.created_at}</p>
-                <p><b>Author: </b>{story.author.name}</p>
+            <div className="container">
+                <div className="text-start mb-5">
+                    <button className='btn btn-dark' onClick={() => {
+                        navigate(-1)
+                    }}>
+                        Kembali
+                    </button>
+                </div>
+                <img className='img-fluid img-thubmnail rounded' src={story.img} alt="" width='350px' height='300px' />
+                <h4 className='mt-4'>{story.title}</h4>
+                <p className='mt-4'>{story.synopsis}</p>
+                <div className="mt-4">
+                    <p><b>Sumber: </b>{story.source}</p>
+                    <p><b>Url: </b>{story.url}</p>
+                    <p><b>Total like: </b>{story.total_likes}</p>
+                    <p><b>Dibuat: </b>{story.created_at}</p>
+                    <p><b>Author: </b>{story.author.name}</p>
+                </div>
             </div>
         </div>
     )
