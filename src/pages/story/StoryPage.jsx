@@ -111,7 +111,9 @@ const StoryPage = () => {
                         </button>
                         <ul className="dropdown-menu">
                           <li>
-                            <a className="dropdown-item"> <i className="bi bi-pencil"></i> Edit </a>
+                            <a className="dropdown-item" onClick={() => {
+                              navigate(`../edit/${item.id}`)
+                            }}> <i className="bi bi-pencil"></i> Edit </a>
                           </li>
                           <li>
                             <a className="dropdown-item" onClick={() => {

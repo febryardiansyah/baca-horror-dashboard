@@ -36,10 +36,18 @@ export default {
             return Promise.reject(error.response.data || error)
         }
     },
-    getStoryById: async(id) => {
+    getStoryById: async (id) => {
         try {
             const response = await http.get(`story/${id}`)
 
+            return Promise.resolve(response.data)
+        } catch (error) {
+            return Promise.reject(error.response.data || error)
+        }
+    },
+    editStoryById: async (id, data) => {
+        try {
+            const response = await http.put(`story/edit/${id}`, data)
             return Promise.resolve(response.data)
         } catch (error) {
             return Promise.reject(error.response.data || error)

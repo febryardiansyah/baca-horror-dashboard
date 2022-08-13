@@ -13,7 +13,7 @@ const ViewStoryPage = () => {
             const service = await storyService.getStoryById(id)
             setStory(service.story)
         } catch (error) {
-            toast.error(error)
+            toast.error(error.message)
         }
     }
 
