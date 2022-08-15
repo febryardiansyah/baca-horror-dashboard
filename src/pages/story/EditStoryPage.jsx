@@ -14,8 +14,8 @@ const EditStoryPage = () => {
         try {
             const service = await storyService.getStoryById(id)
             reset({
-                title: service.story.title,
-                img: service.story.img,
+                title: service.data.title,
+                img: service.data.img,
             },)
         } catch (error) {
             console.log(error);

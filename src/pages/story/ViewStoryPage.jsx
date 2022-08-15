@@ -11,7 +11,7 @@ const ViewStoryPage = () => {
     const fetchStoryById = async () => {
         try {
             const service = await storyService.getStoryById(id)
-            setStory(service.story)
+            setStory(service.data)
         } catch (error) {
             toast.error(error.message)
         }

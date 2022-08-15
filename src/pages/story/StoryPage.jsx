@@ -88,11 +88,11 @@ const StoryPage = () => {
         </div>
         <div className="card mt-4">
           {
-            storyData.data.list.length === 0 ?
+            storyData.data.records.length === 0 ?
               <div className="m-4 text-center">
                 Hasil tidak ditemukan
               </div> :
-              storyData.data.list.map((item, index) => (
+              storyData.data.records.map((item, index) => (
                 <div key={index} className="card-header story-item p-4">
                   <div className="d-flex">
                     <div className="col-1">

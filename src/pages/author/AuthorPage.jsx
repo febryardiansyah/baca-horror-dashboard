@@ -54,7 +54,7 @@ const AuthorPage = () => {
           </thead>
           <tbody>
             {
-              data.authors.map((item, index) => (
+              data.records.map((item, index) => (
                 <tr key={index} className='tr-item'>
                   <th scope='row'> {index + 1} </th>
                   <td>
@@ -74,10 +74,6 @@ const AuthorPage = () => {
                         </li>
                         <li>
                           <a className="dropdown-item" href="#"> <i className="bi bi-eye"></i> Lihat </a>
-                        </li>
-                        <hr />
-                        <li>
-                          <a className="dropdown-item text-danger" href="#"> <i className="bi bi-trash"></i> Hapus </a>
                         </li>
                       </ul>
                     </div>
