@@ -15,39 +15,42 @@ import IndexStory from "./pages/story/IndexStory";
 import IndexAuthor from "./pages/author/IndexAuthor";
 import NewAuthorPage from "./pages/author/NewAuthorPage";
 import EditStoryPage from "./pages/story/EditStoryPage";
+import ScrollToTop from "./components/wrapper/ScrollToTop";
 
 function App() {
   const user = useSelector(state => state.base.user)
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route index path="/login" element={<LoginPage />} />
-          {
-            !user ? <Route element={<Navigate to="/login" replace />} /> :
-              <Route path="/dashboard/*" element={<DashboardPage />}>
-                <Route path="story" element={<IndexStory />} >
-                  <Route index path="" element={<StoryPage />} />
-                  <Route path="page/:page" element={<StoryPage />} />
-                  <Route path="new" element={<NewStoryPage />} />
-                  <Route path="view/:id" element={<ViewStoryPage />} />
-                  <Route path="edit/:id" element={<EditStoryPage />} />
-                </Route>
-                {/* <Route path="story/new" element={<NewStoryPage />} />
+        <ScrollToTop>
+          <Routes>
+            <Route index path="/login" element={<LoginPage />} />
+            {
+              !user ? <Route element={<Navigate to="/login" replace />} /> :
+                <Route path="/dashboard/*" element={<DashboardPage />}>
+                  <Route path="story" element={<IndexStory />} >
+                    <Route index path="" element={<StoryPage />} />
+                    <Route path="page/:page" element={<StoryPage />} />
+                    <Route path="new" element={<NewStoryPage />} />
+                    <Route path="view/:id" element={<ViewStoryPage />} />
+                    <Route path="edit/:id" element={<EditStoryPage />} />
+                  </Route>
+                  {/* <Route path="story/new" element={<NewStoryPage />} />
                 <Route path="story/view/:id" element={<ViewStoryPage />} /> */}
-                <Route path="author" element={<IndexAuthor />}>
-                  <Route index path="" element={<AuthorPage />} />
-                  <Route path="new" element={<NewAuthorPage />} />
+                  <Route path="author" element={<IndexAuthor />}>
+                    <Route index path="" element={<AuthorPage />} />
+                    <Route path="new" element={<NewAuthorPage />} />
+                  </Route>
+                  <Route path="user" element={<UserPage />} />
+                  <Route path="comment" element={<CommentPage />} />
                 </Route>
-                <Route path="user" element={<UserPage />} />
-                <Route path="comment" element={<CommentPage />} />
-              </Route>
-          }
-          <Route
-            path="*"
-            element={<Navigate to="/login" replace />}
-          />
-        </Routes>
+            }
+            <Route
+              path="*"
+              element={<Navigate to="/login" replace />}
+            />
+          </Routes>
+        </ScrollToTop>
       </BrowserRouter>
       <Toaster />
     </>

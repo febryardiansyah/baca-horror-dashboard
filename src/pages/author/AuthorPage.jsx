@@ -32,16 +32,16 @@ const AuthorPage = () => {
     }}>
       <TitleComponent title="Author" />
       <div className="m-4">
-        <form>
+        {/* <form>
           <input
             className="form-control"
             type="text"
             placeholder="Cari author.."
           />
-        </form>
-        <PrimaryButton className='mt-4' text='Tambah author' icon='bi-pencil-square' onClick={()=>{
+        </form> */}
+        <PrimaryButton className='mt-4' text='Tambah author' icon='bi-pencil-square' onClick={() => {
           navigate('new')
-        }}/>
+        }} />
         <table className="table mt-4">
           <thead>
             <tr>
@@ -49,7 +49,7 @@ const AuthorPage = () => {
               <th scope="col">Nama</th>
               <th scope="col">Dibuat</th>
               <th scope="col">Total cerita</th>
-              <th scope="col">Aksi</th>
+              <th scope="col">Id</th>
             </tr>
           </thead>
           <tbody>
@@ -63,7 +63,8 @@ const AuthorPage = () => {
                   </td>
                   <td> {formatTime(item.created_at)} </td>
                   <td> {item.total_stories} </td>
-                  <td>
+                  <td> {item.id} </td>
+                  {/* <td>
                     <div className="dropdown">
                       <button className="btn btn-light btn-outline-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i className="bi bi-three-dots"></i>
@@ -77,7 +78,7 @@ const AuthorPage = () => {
                         </li>
                       </ul>
                     </div>
-                  </td>
+                  </td> */}
                 </tr>
               ))
             }

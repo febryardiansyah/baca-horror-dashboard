@@ -1,6 +1,8 @@
+const isDev = process.env.NODE_ENV === 'development'
+
 export default {
     API: {
-        baseUrl: 'http://localhost:4000/api/'
+        baseUrl: isDev ? process.env.REACT_APP_API_URL_DEV : process.env.REACT_APP_API_URL_PROD
     },
     ROUTE: {
         login: '/login',
