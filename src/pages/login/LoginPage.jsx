@@ -22,7 +22,7 @@ const LoginPage = () => {
         toast.loading('Loading...');
         try {
             const service = await authService.login(login)
-            const user = service.user
+            const user = service.data
             toast.dismiss()
             dispatch(baseActions.setUser(JSON.stringify(user)))
             navigate(constants.ROUTE.dashboard)

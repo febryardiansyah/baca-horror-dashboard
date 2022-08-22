@@ -6,10 +6,10 @@ export default {
     login: async (login) => {
         try {
             const response = await http.post('user/login', login)
-            const data = response.data
-            saveUser(JSON.stringify(data.user))
-            saveToken(data.token)
-            return data;
+            const user = response.data
+            saveUser(JSON.stringify(user.data))
+            saveToken(user.token)
+            return user;
         } catch (error) {
             throw error;
         }

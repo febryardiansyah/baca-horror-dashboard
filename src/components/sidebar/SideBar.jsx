@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { baseActions } from '../../redux/module/baseSlice'
 import authService from '../../services/authService'
 import './sidebar.css'
@@ -11,11 +11,16 @@ const SideBar = () => {
     const currentIndex = useSelector(state => state.base.sideBarIndex)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const location = useLocation()
 
     const changeActiveIndex = (index) => {
         dispatch(baseActions.setSideBarIndex(index))
         localStorage.setItem('index', index)
     }
+
+    // useEffect(()=>{
+    //     console.log(`CHANGE INDEX`);
+    // },[location])
 
     return (
         <div>
