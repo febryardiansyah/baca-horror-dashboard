@@ -35,8 +35,6 @@ function App() {
                     <Route path="view/:id" element={<ViewStoryPage />} />
                     <Route path="edit/:id" element={<EditStoryPage />} />
                   </Route>
-                  {/* <Route path="story/new" element={<NewStoryPage />} />
-                <Route path="story/view/:id" element={<ViewStoryPage />} /> */}
                   <Route path="author" element={<IndexAuthor />}>
                     <Route index path="" element={<AuthorPage />} />
                     <Route path="new" element={<NewAuthorPage />} />

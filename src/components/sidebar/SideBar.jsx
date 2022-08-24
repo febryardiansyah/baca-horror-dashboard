@@ -8,19 +8,9 @@ import './sidebar.css'
 import { SideBarData } from './SideBarData'
 
 const SideBar = () => {
-    const currentIndex = useSelector(state => state.base.sideBarIndex)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const location = useLocation()
-
-    const changeActiveIndex = (index) => {
-        dispatch(baseActions.setSideBarIndex(index))
-        localStorage.setItem('index', index)
-    }
-
-    // useEffect(()=>{
-    //     console.log(`CHANGE INDEX`);
-    // },[location])
 
     return (
         <div>
@@ -32,8 +22,8 @@ const SideBar = () => {
                 <ul className='nav flex-column mb-auto'>
                     {
                         SideBarData.map((item, index) => (
-                            <li className={currentIndex == index ? 'item-active' : ''} key={index}>
-                                <Link to={item.path} onClick={() => changeActiveIndex(index)}>
+                            <li className={location.pathname.includes(item.path)? 'item-active' : ''} key={index}>
+                                <Link to={item.path}>
                                     {item.title}
                                 </Link>
                             </li>
@@ -46,7 +36,6 @@ const SideBar = () => {
                     e.preventDefault()
                     authService.logout()
                     dispatch(baseActions.setUser(null))
-                    dispatch(baseActions.setSideBarIndex(0))
                     toast.dismiss()
                     navigate('/login')
                     toast.success('Logout berhasil!')
